@@ -34,7 +34,7 @@ public class improvedAtmSystem {
                     System.out.print("Enter withdrawal amount: ");
                     int withdrawalAmount = Integer.parseInt(dataInput.nextLine());
                     yourBalance = yourBalance - withdrawalAmount;
-                    System.out.println("$" + (withdrawalAmount) + " Withdrawn successfully.");
+                    System.out.println("$" + ((double)withdrawalAmount) + " Withdrawn successfully.");
                     System.out.println();
                     break;
 

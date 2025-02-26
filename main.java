@@ -2,7 +2,7 @@
 import java.util.Scanner;
 import java.util.HashMap;
 
-public class improvedAtmSystem {
+public class main {
     static void atmBank () {
         Scanner dataInput = new Scanner (System.in);
 

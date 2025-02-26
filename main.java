@@ -31,7 +31,7 @@ public class main {
                     System.out.println();
                     break;
                 case 3:
-                    System.out.println("Enter Withdrawal Amount: ");
+                    System.out.print("Enter Withdrawal Amount: ");
                     int withdrawalAmount = Integer.parseInt(dataInput.nextLine());
                     if (withdrawalAmount>yourBalance){
                         System.out.println("Cannot withdraw beyond your current balance!");
@@ -45,20 +45,20 @@ public class main {
                 case 4:
                     System.out.println("Thank you for using ATM!");
                     System.out.println();
+                    
                     return;
                 default:
                     System.out.println("Invalid option!");
                     System.out.println();
+                    
             }
         
         }
 
 
-
-
     }
 
-    public static void improvedAtmSystem (String[] args) {
+    public static void main (String[] args) {
         Scanner input = new Scanner(System.in);
 
         HashMap <Integer, Integer> atmAccount = new HashMap<>();

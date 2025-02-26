@@ -1,110 +1,124 @@
+
 import java.util.Scanner;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class improvedAtmSystem {
-
-    static void myBank(){
+    static void atmBank () {
         Scanner dataInput = new Scanner (System.in);
 
         double yourBalance = 0.0;
-
         while (true) {
-            System.out.println("ATM MENU:");
+            System.out.println("Welcome!");
             System.out.println("1. Check Balance");
             System.out.println("2. Deposit Money");
             System.out.println("3. Withdraw Money");
-            System.out.println("4. Log out");
-            System.out.print("Choose an option: ");
+            System.out.println("4. Logout");
+            System.out.print("Choose an Option: ");
             int option = Integer.parseInt(dataInput.nextLine());
+            System.out.println();
+            
 
-
-            switch (option) {
+            switch (option){
                 case 1:
                     System.out.println("Your balance: $" + yourBalance);
                     System.out.println();
                     break;
                 case 2:
-                    System.out.print("Enter Deposit amount: ");
-                    int depositAmount = Integer.parseInt(dataInput.nextLine());
-                    yourBalance = yourBalance + depositAmount;
-                    System.out.println("$" + (yourBalance) + " Deposited successfully.");
+                    System.out.print("Enter Deposit Amount: ");
+                    double depositAmount = Double.parseDouble(dataInput.nextLine());
+                    yourBalance +=depositAmount;
+                    System.out.println("Your New Balance: $" + yourBalance);
                     System.out.println();
                     break;
                 case 3:
-                    System.out.print("Enter withdrawal amount: ");
+                    System.out.println("Enter Withdrawal Amount: ");
                     int withdrawalAmount = Integer.parseInt(dataInput.nextLine());
-                    yourBalance = yourBalance - withdrawalAmount;
-                    System.out.println("$" + ((double)withdrawalAmount) + " Withdrawn successfully.");
-                    System.out.println();
+                    if (withdrawalAmount>yourBalance){
+                        System.out.println("Cannot withdraw beyond your current balance!");
+                        System.out.println();
+                    }else {
+                        yourBalance -= withdrawalAmount;
+                        System.out.println("Your Remaining Balance: $" + yourBalance);
+                        System.out.println();
+                    }
                     break;
-
+                case 4:
+                    System.out.println("Thank you for using ATM!");
+                    System.out.println();
+                    return;
+                default:
+                    System.out.println("Invalid option!");
+                    System.out.println();
             }
 
-            if (option == 4) {
-                System.out.println("Logged out.");
-                System.out.println();
-                break;
-            }
         }
+
+
 
 
     }
 
-    public static void main (String[] args){
-        Scanner dataScanner = new Scanner (System.in);
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
 
-        //Target
-        //register new account, note that if already registered must print "already registered"
-        //during login, check first if the account number is registered
+        HashMap <Integer, Integer> atmAccount = new HashMap<>();
 
-        ArrayList <Integer> accountNum = new ArrayList<>();
-        ArrayList <Integer> accountPin = new ArrayList<>();
-
-       while (true) {
+        while (true) {
             System.out.println("1. Register");
             System.out.println("2. Login");
             System.out.println("3. Exit");
-            System.out.print("Enter choice: ");
-            int choiceInput = Integer.parseInt(dataScanner.nextLine());
+            System.out.print("Enter Choice: ");
+            int enterChoice = Integer.parseInt(input.nextLine());
 
-
-            switch (choiceInput){
+            switch (enterChoice){
                 case 1:
-                System.out.print("Enter Account Number: ");
-                int Num = Integer.parseInt(dataScanner.nextLine());
-                accountNum.add(Num);
+                    System.out.print("Enter New Account Number: ");
+                    int newAccountNum = Integer.parseInt(input.nextLine());
+                    if (atmAccount.containsKey(newAccountNum)){
+                        System.out.println("Account Already Registered!");
+                        System.out.println();
+                    } else {
+                        System.out.print("Enter New PIN: ");
+                        int newAccountPin = Integer.parseInt(input.nextLine());
 
-                System.out.print("Enter PIN: ");
-                int Pin = Integer.parseInt(dataScanner.nextLine());
-                accountPin.add(Pin);
+                        atmAccount.put(newAccountNum, newAccountPin);
 
-               System.out.println("Account successfully registered.");
-               System.out.println();
-               break;
+                        System.out.println("Account Successfully Registered");
+                        System.out.println();
+                    }
+                    break;
+                case 2:
+                    System.out.print("Enter Account Number: ");
+                    int accountNumber = Integer.parseInt(input.nextLine());
+                    if (!atmAccount.containsKey(accountNumber)){
+                        System.out.println("Account not Found! Register First!");
+                        System.out.println();
+                    } else {
+                        System.out.print("Enter PIN: ");
+                        int accountPin = Integer.parseInt(input.nextLine());
+                        if (!atmAccount.containsValue(accountPin)){
+                            System.out.println("Wrong PIN! Try Again");
+                            System.out.println();
+                        } else {
+                            System.out.println("Login Successful");
+                            System.out.println();
+                            atmBank();
 
-               case 2:
-               System.out.print("Enter Account Number: ");
-               int loginNum = Integer.parseInt(dataScanner.nextLine());
-               System.out.print("Enter PIN: ");
-               int loginPin = Integer.parseInt(dataScanner.nextLine());
-                 if (accountNum.contains(loginNum) && accountPin.contains(loginPin)){
-                   System.out.println("Login successful.");
-                   System.out.println();
-                   myBank();
-                   break;
-                
-                 } else {
-                   System.out.println("Register first!");
-                   System.out.println();
-                 }
-                 break;
+                        }
+                       
+                    }
+                    break;
+                case 3:
+                    System.out.println("Goodbye!");
+                    input.close();
+                    return;
+                default:
+                    System.out.println("Invalid Choice! Please Try Again!");
+                    System.out.println();
+            }
 
-           } if (choiceInput==3){
-                System.out.println("Goodbye!");
-                break;
-           }
-       }
-       
-       dataScanner.close();
+        }
+
+
     }
 }
